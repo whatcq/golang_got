@@ -46,13 +46,13 @@ func learnTypes(){
     多行文本
     `
 
-    g := 'Σ' // 字符 rune类型 int32的别名，UTR-8
+    g := 'Σ' // 字符 rune类型 int32的别名，UTF-8
 
     f := 3.1415926
     c := 3+4i //complex126类型，内部使用两个float64表示；2d游戏用得着
 
     n := byte('\n') //字符转换成byte(uint8)
-    
+
     var arr[4] int //=>[0,0,0,0]
     arr3 := [...]int{3, 1, 5}
 
@@ -337,7 +337,7 @@ func learnConcurrency() {
 func learnWebProgramming() {
     // ListenAndServe第一个参数指定了监听端口，第二个参数是一个接口，特定是http.Handler。
 	go func() {
-		err := http.ListenAndServe("127.0.0.1:8080", nil)
+		err := http.ListenAndServe("127.0.0.1:8080", pair{})
 		fmt.Println(err) // 不要无视错误。
 	}()
 
@@ -361,4 +361,4 @@ func requestServer() {
 }
 
 // 变量，函数参数，返回值，任何地方都要注意类型的声明
-// 函数库的使用是下一步，需要看手册
+// 函数库的使用是下一步，需要看手册；用法有点莫名其妙
