@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+/*
+lift
+:my first practical application
+*/
 func main() {
 	var floors [34]int
 	l := &lift{
@@ -14,6 +18,7 @@ func main() {
 		floors:    floors, //数组语法？
 	}
 	go l.listen()
+	go l.run()
 }
 
 type lift struct {
