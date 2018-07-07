@@ -25,13 +25,18 @@ type lift struct {
 
 //direction: 0 电梯内部请求到哪一层；1/-1 哪一层要上/下
 func (l *lift) listen() {
-	var floor int
-	var direction bool
+	var (
+		//_floor, _direction string
+		floor, direction   int
+	)
 	for {
 		fmt.Println("floor & direction: ")
 		// 等待输入？
+		fmt.Scanln(&floor, &direction)
+		l.floors[floor] = direction
 	}
 }
+
 // 扫描请求，并move
 func (l *lift) run() {
 	// 死循环该怎样写?
