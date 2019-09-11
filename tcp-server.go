@@ -15,7 +15,11 @@ const (
 )
 
 func main() {
-	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP(ip), port, ""})
+	listen, err := net.ListenTCP("tcp", &net.TCPAddr{
+		IP:   net.ParseIP(ip),
+		Port: port,
+		Zone: "",
+	})
 	if err != nil {
 		fmt.Println("监听端口失败！", err.Error())
 	}
