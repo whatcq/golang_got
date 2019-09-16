@@ -1,8 +1,9 @@
 package main
 
 import (
-	"net"
 	"fmt"
+	"io"
+	"net"
 )
 
 /*
@@ -35,17 +36,27 @@ func Server(listen *net.TCPListener) {
 			continue
 		}
 		fmt.Println("客户端连接来自:", conn.RemoteAddr().String())
-		defer conn.Close() //? Possible resource leak, defer is call in a for loop
 		go func() {
+			defer func() {
+				conn.Close()
+				fmt.Println("===========")
+			}()
 			data := make([]byte, 128)
 			for {
 				i, err := conn.Read(data) //每次为什么只读到一个字节？
-				fmt.Println("客服端发来数据:", string(data[0:i]))
+				fmt.Printf("%v", conn)
 				if err != nil {
+					if err == io.EOF {
+						fmt.Printf("client %s is close!\n", conn.RemoteAddr().String())
+						//在这里直接退出goroutine，关闭由defer操作完成
+						return
+					}
+
 					fmt.Println("读取客户端数据错误:", err.Error())
 					break
 				}
-				conn.Write([]byte("finish"))
+				fmt.Println("客服端发来数据:", string(data[0:i]))
+				conn.Write([]byte("."))
 			}
 		}()
 	}
